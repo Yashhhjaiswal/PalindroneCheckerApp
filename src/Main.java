@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main{
+public class Main {
 
     static HashMap<String,Integer> pageViews = new HashMap<>();
 
