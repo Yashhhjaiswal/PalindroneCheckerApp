@@ -2,30 +2,25 @@ import java.util.*;
 
 public class Main {
 
-    static HashMap<String,Integer> pageViews = new HashMap<>();
+    static HashMap<String,Integer> queries = new HashMap<>();
 
     public static void main(String[] args){
 
-        processEvent("/news");
-        processEvent("/sports");
-        processEvent("/news");
-        processEvent("/tech");
+        queries.put("java tutorial",100);
+        queries.put("javascript guide",90);
+        queries.put("java download",80);
 
-        showDashboard();
+        search("jav");
     }
 
-    static void processEvent(String page){
+    static void search(String prefix){
 
-        pageViews.put(page,pageViews.getOrDefault(page,0)+1);
-    }
+        for(String query:queries.keySet()){
 
-    static void showDashboard(){
+            if(query.startsWith(prefix)){
 
-        System.out.println("Page Views:");
-
-        for(String page:pageViews.keySet()){
-
-            System.out.println(page+" → "+pageViews.get(page));
+                System.out.println(query+" ("+queries.get(query)+")");
+            }
         }
     }
 }
