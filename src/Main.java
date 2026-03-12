@@ -1,39 +1,36 @@
 import java.util.*;
 
-public class Main {
-
-    static HashMap<String,Integer> stock = new HashMap<>();
-    static Queue<Integer> waitingList = new LinkedList<>();
+public class Problem4PlagiarismDetector {
 
     public static void main(String[] args){
 
-        stock.put("IPHONE15",5);
+        String doc1="machine learning models are powerful";
+        String doc2="machine learning models are widely used";
 
-        purchaseItem("IPHONE15",101);
-        purchaseItem("IPHONE15",102);
-        purchaseItem("IPHONE15",103);
-        purchaseItem("IPHONE15",104);
-        purchaseItem("IPHONE15",105);
-        purchaseItem("IPHONE15",106);
+        Set<String> ngrams1 = generateNgrams(doc1,2);
+        Set<String> ngrams2 = generateNgrams(doc2,2);
+
+        ngrams1.retainAll(ngrams2);
+
+        System.out.println("Matching ngrams: "+ngrams1.size());
     }
 
-    static void purchaseItem(String productId,int userId){
+    static Set<String> generateNgrams(String text,int n){
 
-        int currentStock = stock.getOrDefault(productId,0);
+        String[] words = text.split(" ");
+        Set<String> set = new HashSet<>();
 
-        if(currentStock>0){
+        for(int i=0;i<=words.length-n;i++){
 
-            stock.put(productId,currentStock-1);
+            String gram = "";
 
-            System.out.println("Purchase successful by user "+userId+
-                    ". Remaining: "+(currentStock-1));
+            for(int j=0;j<n;j++){
+                gram += words[i+j]+" ";
+            }
 
-        }else{
-
-            waitingList.add(userId);
-
-            System.out.println("Out of stock. User "+userId+
-                    " added to waiting list.");
+            set.add(gram.trim());
         }
+
+        return set;
     }
 }
